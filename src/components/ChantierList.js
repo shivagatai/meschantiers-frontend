@@ -24,7 +24,9 @@ const ChantierList = ({ chantiers = [] }) => {
             <CardHeader title={operation} />
             <CardContent>
               <Typography>Code chantier : {numero}</Typography>
-              <Typography>Etape : {etape.etape}</Typography>
+              <Typography>
+                Etape : {etape ? etape.etape : "non renseignée"}
+              </Typography>
             </CardContent>
             <CardActions>
               <Button to={`/chantier/${id}`} component={Link}>
