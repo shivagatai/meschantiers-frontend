@@ -15,7 +15,8 @@ const EpciTemplate = ({ data }) => {
       </Breadcrumbs>
       */}
       <Typography variant="h1">{etiq_epci}</Typography>
-      <CommuneList communes={data.allStrapiCommune.nodes} />
+      {/*<CommuneList communes={data.allStrapiCommune.nodes} />
+       */}
     </Layout>
   )
 }
