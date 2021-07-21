@@ -44,15 +44,18 @@ const ChantierTemplate = ({ data }) => {
   console.log(cpe)
   return (
     <Layout>
-      <Breadcrumbs>
-        <Link to={`/departement/${site.commune.departement.dpt}`}>
-          {site.commune.departement.nom}
-        </Link>
-        <Link to={`/commune/${site.commune.insee_nv}`}>
-          {site.commune.commune_nv}
-        </Link>
-        <Link to={`/sites/${site.numero}`}>{site.nom_corrige_dbr}</Link>
-      </Breadcrumbs>
+      {site && (
+        // un chantier peut-être multi-site, auquel cas on ne peut pas afficher le fil d’ariane
+        <Breadcrumbs>
+          <Link to={`/departement/${site.commune.departement.dpt}`}>
+            {site.commune.departement.nom}
+          </Link>
+          <Link to={`/commune/${site.commune.insee_nv}`}>
+            {site.commune.commune_nv}
+          </Link>
+          <Link to={`/sites/${site.numero}`}>{site.nom_corrige_dbr}</Link>
+        </Breadcrumbs>
+      )}
       <Typography variant="h1">{operation}</Typography>
       <FormControl component="fieldset">
         <FormGroup aria-label="position" row>
