@@ -5,9 +5,13 @@ import Layout from "../../components/layout"
 import { Breadcrumbs, Typography } from "@material-ui/core"
 
 const EpciTemplate = ({ data }) => {
-  const { communes, epci, etiq_epci } = data.strapiEpci
+  const {
+    communes,
+    epci,
+    etiq_epci,
+    departement: { nom, dpt },
+  } = data.strapiEpci
 
-  const { nom, dpt } = data.strapiDepartement
   return (
     <Layout>
       <Breadcrumbs>
