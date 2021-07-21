@@ -27,7 +27,7 @@ const ChantierTemplate = ({ data }) => {
     cpe,
     date_deliberation,
     dfap,
-    etape: { etape, ordre },
+    etape,
     etat,
     fin_tvx_date_prev,
     id,
@@ -137,7 +137,7 @@ const ChantierTemplate = ({ data }) => {
           </TimelineContent>
         </TimelineItem>
       </Timeline>
-      <Typography> Etape : {etape}</Typography>
+      <Typography> Etape : {etape ? etape.etape : "non renseignée"}</Typography>
     </Layout>
   )
 }
