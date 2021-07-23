@@ -59,7 +59,6 @@ const ChantierTemplate = ({ data }) => {
       events.push(
         new BudgetFriseItem({
           evt_date: DateTime.fromISO(date_suivi_budget),
-          evt_type: Frise.EventType.BUDGET,
           engagement_total,
           mandatement_total,
         })
@@ -72,85 +71,66 @@ const ChantierTemplate = ({ data }) => {
       events.push(
         new RevueFriseItem({
           evt_date: DateTime.fromISO(date_maj),
-          evt_type: Frise.EventType.REVUE,
           info_cles,
           info_marches,
         })
       )
     })
   }
-  if (remise_prog_date_prev) {
-    events.push(
-      new DatePrevFriseItem({
-        evt_date: DateTime.fromISO(remise_prog_date_prev),
-        evt_type: Frise.EventType.DATE_PREV,
-        label: "Date prévue de remise du programme",
-      })
-    )
-  }
-  if (notif_moe_date_prev) {
-    events.push(
-      new DatePrevFriseItem({
-        evt_date: DateTime.fromISO(notif_moe_date_prev),
-        evt_type: Frise.EventType.DATE_PREV,
-        label: "Date prévue de notification du maître d’œuvre",
-      })
-    )
-  }
-  if (notif_ent_date_prev) {
-    events.push(
-      new DatePrevFriseItem({
-        evt_date: DateTime.fromISO(notif_ent_date_prev),
-        evt_type: Frise.EventType.DATE_PREV,
-        label: "Date prévue de notification des entreprises",
-      })
-    )
-  }
-  if (fin_tvx_date_prev) {
-    events.push(
-      new DatePrevFriseItem({
-        evt_date: DateTime.fromISO(fin_tvx_date_prev),
-        evt_type: Frise.EventType.DATE_PREV,
-        label: "Date prévue de fin des travaux",
-      })
-    )
-  }
-  if (remise_prog_date_reel) {
-    events.push(
-      new DateReelFriseItem({
-        evt_date: DateTime.fromISO(remise_prog_date_reel),
-        evt_type: Frise.EventType.DATE_REEL,
-        label: "Date réelle de remise du programme",
-      })
-    )
-  }
-  if (notif_moe_date_reel) {
-    events.push(
-      new DateReelFriseItem({
-        evt_date: DateTime.fromISO(notif_moe_date_reel),
-        evt_type: Frise.EventType.DATE_REEL,
-        label: "Date réelle de notification du maître d’œuvre",
-      })
-    )
-  }
-  if (notif_ent_date_reel) {
-    events.push(
-      new DateReelFriseItem({
-        evt_date: DateTime.fromISO(notif_ent_date_reel),
-        evt_type: Frise.EventType.DATE_REEL,
-        label: "Date réelle de notification des entreprises",
-      })
-    )
-  }
-  if (fin_tvx_date_reel) {
-    events.push(
-      new DateReelFriseItem({
-        evt_date: DateTime.fromISO(fin_tvx_date_reel),
-        evt_type: Frise.EventType.DATE_REEL,
-        label: "Date réelle de fin des travaux",
-      })
-    )
-  }
+
+  const date_prev = [
+    {
+      value: remise_prog_date_prev,
+      label: "Date prévue de remise du programme",
+    },
+    {
+      value: notif_moe_date_prev,
+      label: "Date prévue de notification du maître d’œuvre",
+    },
+    {
+      value: notif_ent_date_prev,
+      label: "Date prévue de notification des entreprises",
+    },
+    { value: fin_tvx_date_prev, label: "Date prévue de fin des travaux" },
+  ]
+
+  date_prev.forEach(({ value, label }) => {
+    if (value) {
+      events.push(
+        new DatePrevFriseItem({
+          evt_date: DateTime.fromISO(value),
+          label,
+        })
+      )
+    }
+  })
+
+  const date_reel = [
+    {
+      value: remise_prog_date_reel,
+      label: "Date réelle de remise du programme",
+    },
+    {
+      value: notif_moe_date_reel,
+      label: "Date réelle de notification du maître d’œuvre",
+    },
+    {
+      value: notif_ent_date_reel,
+      label: "Date réelle de notification des entreprises",
+    },
+    { value: fin_tvx_date_reel, label: "Date réelle de fin des travaux" },
+  ]
+
+  date_reel.forEach(({ value, label }) => {
+    if (value) {
+      events.push(
+        new DateReelFriseItem({
+          evt_date: DateTime.fromISO(value),
+          label,
+        })
+      )
+    }
+  })
 
   //  console.log(events)
 
