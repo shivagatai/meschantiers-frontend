@@ -15,6 +15,7 @@ import { DateTime } from "luxon"
 
 import { FormControl } from "@material-ui/core"
 import Frise from "../../components/Frise"
+import { budgetFormat, percentFormat } from "../../utils/Utils"
 
 const ChantierTemplate = ({ data }) => {
   const {
@@ -45,11 +46,6 @@ const ChantierTemplate = ({ data }) => {
     budgets,
     revues,
   } = data.strapiChantier
-  console.log(cpe)
-  const budgetFormat = new Intl.NumberFormat("fr-FR", {
-    style: "currency",
-    currency: "EUR",
-  })
 
   // Construction du tableau des événements sur ce chantier
   const events = []
