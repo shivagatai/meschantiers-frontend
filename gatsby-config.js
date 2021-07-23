@@ -49,6 +49,7 @@ module.exports = {
           "etape",
           "revue",
           "site",
+          "budget",
         ],
         loginData: {
           identifier: process.env.API_EMAIL,

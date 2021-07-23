@@ -19,6 +19,7 @@
     "gatsby-source-filesystem": "^3.6.0",
     "gatsby-source-strapi": "^1.0.2",
     "gatsby-transformer-sharp": "^3.6.0",
+    "luxon": "^2.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
