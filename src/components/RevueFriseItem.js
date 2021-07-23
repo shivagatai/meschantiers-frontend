@@ -34,10 +34,6 @@ const RevueFriseItem = ({ evt_date, info_cles, info_marches }) => {
     )
   }
 
-  const getDate = () => {
-    return evt_date
-  }
-
   const renderIcon = () => {
     return <AssignmentOutlinedIcon />
   }
