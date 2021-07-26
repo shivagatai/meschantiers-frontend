@@ -52,85 +52,7 @@ const ChantierTemplate = ({ data }) => {
   } = data.strapiChantier
 
   // Construction du tableau des événements sur ce chantier
-  const events = []
-  if (budgets) {
-    budgets.forEach(budget => {
-      const { date_suivi_budget, engagement_total, mandatement_total } = budget
-      events.push(
-        new BudgetFriseItem({
-          evt_date: DateTime.fromISO(date_suivi_budget),
-          engagement_total,
-          mandatement_total,
-        })
-      )
-    })
-  }
-  if (revues) {
-    revues.forEach(revue => {
-      const { date_maj, info_cles, info_marches } = revue
-      events.push(
-        new RevueFriseItem({
-          evt_date: DateTime.fromISO(date_maj),
-          info_cles,
-          info_marches,
-        })
-      )
-    })
-  }
-
-  const date_prev = [
-    {
-      value: remise_prog_date_prev,
-      label: "Date prévue de remise du programme",
-    },
-    {
-      value: notif_moe_date_prev,
-      label: "Date prévue de notification du maître d’œuvre",
-    },
-    {
-      value: notif_ent_date_prev,
-      label: "Date prévue de notification des entreprises",
-    },
-    { value: fin_tvx_date_prev, label: "Date prévue de fin des travaux" },
-  ]
-
-  date_prev.forEach(({ value, label }) => {
-    if (value) {
-      events.push(
-        new DatePrevFriseItem({
-          evt_date: DateTime.fromISO(value),
-          label,
-        })
-      )
-    }
-  })
-
-  const date_reel = [
-    {
-      value: remise_prog_date_reel,
-      label: "Date réelle de remise du programme",
-    },
-    {
-      value: notif_moe_date_reel,
-      label: "Date réelle de notification du maître d’œuvre",
-    },
-    {
-      value: notif_ent_date_reel,
-      label: "Date réelle de notification des entreprises",
-    },
-    { value: fin_tvx_date_reel, label: "Date réelle de fin des travaux" },
-  ]
-
-  date_reel.forEach(({ value, label }) => {
-    if (value) {
-      events.push(
-        new DateReelFriseItem({
-          evt_date: DateTime.fromISO(value),
-          label,
-        })
-      )
-    }
-  })
+  const events = buildEventArray(budgets, revues, remise_prog_date_prev, notif_moe_date_prev, notif_ent_date_prev, fin_tvx_date_prev, remise_prog_date_reel, notif_moe_date_reel, notif_ent_date_reel, fin_tvx_date_reel)
 
   //  console.log(events)
 
@@ -260,3 +182,82 @@ export const query = graphql`
 `
 
 export default ChantierTemplate
+
+
+function buildEventArray(budgets, revues, remise_prog_date_prev, notif_moe_date_prev, notif_ent_date_prev, fin_tvx_date_prev, remise_prog_date_reel, notif_moe_date_reel, notif_ent_date_reel, fin_tvx_date_reel) {
+  const events = []
+  if (budgets) {
+    budgets.forEach(budget => {
+      const { date_suivi_budget, engagement_total, mandatement_total } = budget
+      events.push(
+        <BudgetFriseItem evt_date={DateTime.fromISO(date_suivi_budget)}
+          engagement_total={engagement_total}
+          mandatement_total={mandatement_total} />
+      )
+    })
+  }
+  if (revues) {
+    revues.forEach(revue => {
+      const { date_maj, info_cles, info_marches } = revue
+      events.push(
+        <RevueFriseItem evt_date={DateTime.fromISO(date_maj)}
+          info_cles={info_cles}
+          info_marches={info_marches} />
+      )
+    })
+  }
+
+  const date_prev = [
+    {
+      value: remise_prog_date_prev,
+      label: "Date prévue de remise du programme",
+    },
+    {
+      value: notif_moe_date_prev,
+      label: "Date prévue de notification du maître d’œuvre",
+    },
+    {
+      value: notif_ent_date_prev,
+      label: "Date prévue de notification des entreprises",
+    },
+    { value: fin_tvx_date_prev, label: "Date prévue de fin des travaux" },
+  ]
+
+  date_prev.forEach(({ value, label }) => {
+    if (value) {
+      events.push(
+        <DatePrevFriseItem
+          evt_date={DateTime.fromISO(value)}
+          label={label} />
+      )
+    }
+  })
+
+  const date_reel = [
+    {
+      value: remise_prog_date_reel,
+      label: "Date réelle de remise du programme",
+    },
+    {
+      value: notif_moe_date_reel,
+      label: "Date réelle de notification du maître d’œuvre",
+    },
+    {
+      value: notif_ent_date_reel,
+      label: "Date réelle de notification des entreprises",
+    },
+    { value: fin_tvx_date_reel, label: "Date réelle de fin des travaux" },
+  ]
+
+  date_reel.forEach(({ value, label }) => {
+    if (value) {
+      events.push(
+        <DateReelFriseItem
+          evt_date={DateTime.fromISO(value)}
+          label={label} />
+      )
+    }
+  })
+  return events
+}
+
