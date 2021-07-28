@@ -31,14 +31,8 @@ const ChantierTemplate = ({ data }) => {
     etape,
     etat,
     id,
-    notif_ent_date_prev,
-    notif_moe_date_prev,
-    remise_prog_date_prev,
-    fin_tvx_date_prev,
-    notif_ent_date_reel,
-    notif_moe_date_reel,
-    remise_prog_date_reel,
-    fin_tvx_date_reel,
+    prevu,
+    reel,
     numero,
     operation,
     plan_relance,
@@ -52,9 +46,9 @@ const ChantierTemplate = ({ data }) => {
   } = data.strapiChantier
 
   // Construction du tableau des événements sur ce chantier
-  const events = buildEventArray(budgets, revues, remise_prog_date_prev, notif_moe_date_prev, notif_ent_date_prev, fin_tvx_date_prev, remise_prog_date_reel, notif_moe_date_reel, notif_ent_date_reel, fin_tvx_date_reel)
+  const events = buildEventArray(budgets, revues, prevu, reel)
 
-  //  console.log(events)
+  console.log(events)
 
   return (
     <Layout>
@@ -131,16 +125,12 @@ export const query = graphql`
         id
       }
       etat
-      fin_tvx_date_prev
       id
-      notif_ent_date_prev
-      notif_moe_date_prev
       numero
       operation
       plan_relance
       priorite
       strapiId
-      remise_prog_date_prev
       site {
         commune {
           insee_nv
@@ -161,12 +151,21 @@ export const query = graphql`
         info_cles
         info_marches
       }
-      fin_tvx_date_reel
       fonction_associee
       categorie_travaux
       dfap
-      remise_prog_date_reel
-      notif_ent_date_reel
+      prevu {
+        remise_prog
+        notif_moe
+        notif_ent
+        fin_tvx
+      }
+      reel {
+        remise_prog
+        notif_moe
+        notif_ent
+        fin_tvx
+      }
       budgets {
         cout_previsionnel_operation
         date_suivi_budget
@@ -183,16 +182,25 @@ export const query = graphql`
 
 export default ChantierTemplate
 
-
-function buildEventArray(budgets, revues, remise_prog_date_prev, notif_moe_date_prev, notif_ent_date_prev, fin_tvx_date_prev, remise_prog_date_reel, notif_moe_date_reel, notif_ent_date_reel, fin_tvx_date_reel) {
+/**
+ *
+ * @param {*} budgets
+ * @param {*} revues
+ * @param {*} prevu Composant Strapi Projet.planning
+ * @param {*} reel Composant Strapi Projet.planning
+ * @returns
+ */
+function buildEventArray(budgets, revues, prevu, reel) {
   const events = []
   if (budgets) {
     budgets.forEach(budget => {
       const { date_suivi_budget, engagement_total, mandatement_total } = budget
       events.push(
-        <BudgetFriseItem evt_date={DateTime.fromISO(date_suivi_budget)}
+        <BudgetFriseItem
+          evt_date={DateTime.fromISO(date_suivi_budget)}
           engagement_total={engagement_total}
-          mandatement_total={mandatement_total} />
+          mandatement_total={mandatement_total}
+        />
       )
     })
   }
@@ -200,64 +208,65 @@ function buildEventArray(budgets, revues, remise_prog_date_prev, notif_moe_date_
     revues.forEach(revue => {
       const { date_maj, info_cles, info_marches } = revue
       events.push(
-        <RevueFriseItem evt_date={DateTime.fromISO(date_maj)}
+        <RevueFriseItem
+          evt_date={DateTime.fromISO(date_maj)}
           info_cles={info_cles}
-          info_marches={info_marches} />
+          info_marches={info_marches}
+        />
       )
     })
   }
 
   const date_prev = [
     {
-      value: remise_prog_date_prev,
+      value: prevu.remise_prog,
       label: "Date prévue de remise du programme",
     },
     {
-      value: notif_moe_date_prev,
+      value: prevu.notif_moe,
       label: "Date prévue de notification du maître d’œuvre",
     },
     {
-      value: notif_ent_date_prev,
+      value: prevu.notif_ent,
       label: "Date prévue de notification des entreprises",
     },
-    { value: fin_tvx_date_prev, label: "Date prévue de fin des travaux" },
+    { value: prevu.fin_tvx, label: "Date prévue de fin des travaux" },
   ]
+
+  // console.log(date_prev)
+  // console.log(events)
 
   date_prev.forEach(({ value, label }) => {
     if (value) {
       events.push(
-        <DatePrevFriseItem
-          evt_date={DateTime.fromISO(value)}
-          label={label} />
+        <DatePrevFriseItem evt_date={DateTime.fromISO(value)} label={label} />
       )
     }
   })
+  // console.log(events)
 
   const date_reel = [
     {
-      value: remise_prog_date_reel,
+      value: reel.remise_prog,
       label: "Date réelle de remise du programme",
     },
     {
-      value: notif_moe_date_reel,
+      value: reel.notif_moe,
       label: "Date réelle de notification du maître d’œuvre",
     },
     {
-      value: notif_ent_date_reel,
+      value: reel.notif_ent,
       label: "Date réelle de notification des entreprises",
     },
-    { value: fin_tvx_date_reel, label: "Date réelle de fin des travaux" },
+    { value: reel.fin_tvx, label: "Date réelle de fin des travaux" },
   ]
 
   date_reel.forEach(({ value, label }) => {
     if (value) {
       events.push(
-        <DateReelFriseItem
-          evt_date={DateTime.fromISO(value)}
-          label={label} />
+        <DateReelFriseItem evt_date={DateTime.fromISO(value)} label={label} />
       )
     }
   })
   return events
 }
-
