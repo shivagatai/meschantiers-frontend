@@ -18,7 +18,7 @@ const DatePrevFriseItem = ({ evt_date, label }) => {
   }
 
   // On n’affiche que les dates prévisionnelles situées dans le futur
-  const displayItem = 0 <= evt_date.toMillis() - DateTime.now().toMillis
+  const displayItem = evt_date >= DateTime.now()
 
   return (
     <FriseItem
