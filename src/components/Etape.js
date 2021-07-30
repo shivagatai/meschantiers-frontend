@@ -18,7 +18,7 @@ const Etape = ({ etape, livraison }) => {
     }
   }
 
-  return <>{etape && <Typography>Étape : {msg}</Typography>}</>
+  return <Typography>Étape : {msg}</Typography>
 }
 
 export default Etape
