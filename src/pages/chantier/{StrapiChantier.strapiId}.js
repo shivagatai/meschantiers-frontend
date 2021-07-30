@@ -20,6 +20,8 @@ import BudgetFriseItem from "../../components/BudgetFriseItem"
 import RevueFriseItem from "../../components/RevueFriseItem"
 import DatePrevFriseItem from "../../components/DatePrevFriseItem"
 import DateReelFriseItem from "../../components/DateReelFriseItem"
+import MarcheFriseItem from "../../components/MarcheFriseItem"
+import Etape from "../../components/Etape"
 
 const ChantierTemplate = ({ data }) => {
   const {
@@ -43,10 +45,11 @@ const ChantierTemplate = ({ data }) => {
     fonction_associee,
     budgets,
     revues,
+    evt_marches,
   } = data.strapiChantier
 
   // Construction du tableau des événements sur ce chantier
-  const events = buildEventArray(budgets, revues, prevu, reel)
+  const events = buildEventArray(budgets, revues, prevu, reel, evt_marches)
 
   console.log(events)
 
@@ -104,10 +107,9 @@ const ChantierTemplate = ({ data }) => {
           )}
         </Typography>
       )}
+      <Etape etape={etape} livraison={reel["fin_tvx"]} />
 
-      <Typography> Etape : {etape ? etape.etape : "non renseignée"}</Typography>
-
-      <Frise events={events.filter(evt => evt.props.display)} />
+      <Frise events={events} />
     </Layout>
   )
 }
@@ -176,6 +178,11 @@ export const query = graphql`
         reste_a_mandater_sur_engagement
         reste_a_mandater_sur_operation
       }
+      evt_marches {
+        jalon_date
+        observations
+        type
+      }
     }
   }
 `
@@ -190,7 +197,7 @@ export default ChantierTemplate
  * @param {*} reel Composant Strapi Projet.planning
  * @returns
  */
-function buildEventArray(budgets, revues, prevu, reel) {
+function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
   const events = []
   if (budgets) {
     budgets.forEach(budget => {
@@ -234,7 +241,7 @@ function buildEventArray(budgets, revues, prevu, reel) {
   ]
 
   // console.log(date_prev)
-  // console.log(events)
+  //  console.log(events)
 
   date_prev.forEach(({ value, label }) => {
     if (value) {
@@ -268,5 +275,17 @@ function buildEventArray(budgets, revues, prevu, reel) {
       )
     }
   })
+
+  if (evt_marches) {
+    evt_marches.forEach(({ jalon_date, observations, type }) => {
+      events.push(
+        <MarcheFriseItem
+          evt_date={DateTime.fromISO(jalon_date)}
+          label={type}
+          obs={observations}
+        />
+      )
+    })
+  }
   return events
 }

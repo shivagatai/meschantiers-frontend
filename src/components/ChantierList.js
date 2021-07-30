@@ -9,6 +9,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-ui/core"
+import Etape from "./Etape"
 
 const ChantierList = ({ chantiers = [] }) => {
   return (
@@ -24,9 +25,7 @@ const ChantierList = ({ chantiers = [] }) => {
             <CardHeader title={operation} />
             <CardContent>
               <Typography>Code chantier : {numero}</Typography>
-              <Typography>
-                Etape : {etape ? etape.etape : "non renseignée"}
-              </Typography>
+              <Etape etape={etape} />
             </CardContent>
             <CardActions>
               <Button to={`/chantier/${id}`} component={Link}>

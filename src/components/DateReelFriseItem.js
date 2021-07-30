@@ -22,7 +22,7 @@ const DateReelFriseItem = ({ evt_date, label }) => {
   }
 
   // On n’affiche que les dates réelles situées dans le passé
-  const displayItem = evt_date <= DateTime.now()
+  const displayItem = 0 >= evt_date.toMillis() - DateTime.now().toMillis()
 
   return (
     <FriseItem

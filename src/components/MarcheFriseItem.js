@@ -4,30 +4,30 @@ import { Typography } from "@material-ui/core"
 
 import EventOutlinedIcon from "@material-ui/icons/EventOutlined"
 
-import { DateTime } from "luxon"
-
 import FriseItem from "./FriseItem"
 
-const DatePrevFriseItem = ({ evt_date, label }) => {
+const MarcheFriseItem = ({ evt_date, label, obs }) => {
   const renderSwitch = () => {
-    return <Typography>{label}</Typography>
+    return (
+      <>
+        <Typography>{label}</Typography>
+        <Typography>{obs}</Typography>
+      </>
+    )
   }
 
   const renderIcon = () => {
     return <EventOutlinedIcon />
   }
 
-  // On n’affiche que les dates prévisionnelles situées dans le futur
-  const displayItem = 0 <= evt_date.toMillis() - DateTime.now().toMillis
-
   return (
     <FriseItem
       item={() => renderSwitch()}
       icon={() => renderIcon()}
       evt_date={evt_date}
-      display={displayItem}
+      display={true}
     />
   )
 }
 
-export default DatePrevFriseItem
+export default MarcheFriseItem

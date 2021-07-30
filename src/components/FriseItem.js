@@ -11,6 +11,7 @@ import {
   TimelineItem,
   TimelineOppositeContent,
 } from "@material-ui/lab"
+import { DateTime } from "luxon"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -26,22 +27,26 @@ const FriseItem = ({ evt_date, item, icon, display = true }) => {
   const classes = useStyles()
 
   return (
-    <TimelineItem>
-      <TimelineOppositeContent>
-        <Typography className={classes.dateItem}>
-          {evt_date.setLocale("fr").toLocaleString()}
-        </Typography>
-      </TimelineOppositeContent>
-      <TimelineSeparator>
-        <TimelineDot color="primary">{icon()}</TimelineDot>
-        <TimelineConnector />
-      </TimelineSeparator>
-      <TimelineContent>
-        <Paper elevation={3} className={classes.paper}>
-          {item()}
-        </Paper>
-      </TimelineContent>
-    </TimelineItem>
+    <>
+      {display && (
+        <TimelineItem>
+          <TimelineOppositeContent>
+            <Typography className={classes.dateItem}>
+              {evt_date.setLocale("fr").toLocaleString()}
+            </Typography>
+          </TimelineOppositeContent>
+          <TimelineSeparator>
+            <TimelineDot color="primary">{icon()}</TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Paper elevation={3} className={classes.paper}>
+              {item()}
+            </Paper>
+          </TimelineContent>
+        </TimelineItem>
+      )}
+    </>
   )
 }
 
