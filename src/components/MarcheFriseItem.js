@@ -2,7 +2,7 @@ import React from "react"
 
 import { Typography } from "@material-ui/core"
 
-import EventOutlinedIcon from "@material-ui/icons/EventOutlined"
+import AccountBalanceOutlinedIcon from "@material-ui/icons/AccountBalanceOutlined"
 
 import FriseItem from "./FriseItem"
 
@@ -17,7 +17,7 @@ const MarcheFriseItem = ({ evt_date, label, obs }) => {
   }
 
   const renderIcon = () => {
-    return <EventOutlinedIcon />
+    return <AccountBalanceOutlinedIcon />
   }
 
   return (
