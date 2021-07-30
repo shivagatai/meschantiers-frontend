@@ -51,7 +51,7 @@ const ChantierTemplate = ({ data }) => {
   // Construction du tableau des événements sur ce chantier
   const events = buildEventArray(budgets, revues, prevu, reel, evt_marches)
 
-  console.log(events)
+  //  console.log(events)
 
   return (
     <Layout>
