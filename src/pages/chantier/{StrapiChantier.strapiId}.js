@@ -281,7 +281,7 @@ function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
       events.push(
         <MarcheFriseItem
           evt_date={DateTime.fromISO(jalon_date)}
-          label={type}
+          type={type}
           obs={observations}
         />
       )
