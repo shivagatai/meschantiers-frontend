@@ -38,8 +38,11 @@ const ChantierAVenir = () => {
   const nextChantiersWithFinTvxNotNull = nextChantiers.filter(
     chantier => chantier.prevu.fin_tvx
   )
+
+  // la date prévue de fin de chantier doit se situer entre J et J+30
   const twoMonthsNextChantiersLivres = nextChantiersWithFinTvxNotNull.filter(
     chantier =>
+    DateTime.fromISO(chantier.prevu.fin_tvx) >= DateTime.now() &&
       DateTime.fromISO(chantier.prevu.fin_tvx) <=
       DateTime.now().plus({ months: 1 })
   )
