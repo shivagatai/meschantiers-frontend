@@ -13,6 +13,10 @@ const chantiersComiteProjQuery = graphql`
         numero
         operation
         comite_proj
+        cpe
+        dfap
+        plan_relance
+        priorite
         etape {
           etape
           ordre
