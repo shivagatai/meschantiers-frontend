@@ -51,6 +51,13 @@ export const query = graphql`
       chantiers {
         operation
         numero
+        cpe
+        dfap
+        plan_relance
+        comite_proj
+        priorite
+        fonction_associee
+        categorie_travaux
         id
         site
         etape {

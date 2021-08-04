@@ -7,7 +7,12 @@ import EuroSymbolOutlinedIcon from "@material-ui/icons/EuroSymbolOutlined"
 import { budgetFormat, percentFormat } from "../utils/Utils"
 import FriseItem from "./FriseItem"
 
-const BudgetFriseItem = ({ evt_date, mandatement_total, engagement_total }) => {
+const BudgetFriseItem = ({
+  key,
+  evt_date,
+  mandatement_total,
+  engagement_total,
+}) => {
   const renderSwitch = () => {
     return (
       <>
@@ -31,6 +36,7 @@ const BudgetFriseItem = ({ evt_date, mandatement_total, engagement_total }) => {
 
   return (
     <FriseItem
+      key={`frise${key}`}
       item={() => renderSwitch()}
       icon={() => renderIcon()}
       evt_date={evt_date}

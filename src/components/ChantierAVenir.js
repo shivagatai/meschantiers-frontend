@@ -17,6 +17,11 @@ const queryChantiersAVenir = graphql`
           fin_tvx
         }
         operation
+        cpe
+        plan_relance
+        comite_proj
+        dfap
+        priorite
         site {
           nom_corrige_dbr
           eple
@@ -42,9 +47,9 @@ const ChantierAVenir = () => {
   // la date prévue de fin de chantier doit se situer entre J et J+30
   const twoMonthsNextChantiersLivres = nextChantiersWithFinTvxNotNull.filter(
     chantier =>
-    DateTime.fromISO(chantier.prevu.fin_tvx) >= DateTime.now() &&
+      DateTime.fromISO(chantier.prevu.fin_tvx) >= DateTime.now() &&
       DateTime.fromISO(chantier.prevu.fin_tvx) <=
-      DateTime.now().plus({ months: 1 })
+        DateTime.now().plus({ months: 1 })
   )
 
   return (

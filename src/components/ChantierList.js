@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-ui/core"
 import Etape from "./Etape"
+import ChipChantier from "./ChipChantier"
 
 const ChantierList = ({ chantiers = [] }) => {
   return (
@@ -24,6 +25,7 @@ const ChantierList = ({ chantiers = [] }) => {
           <Card key={id}>
             <CardHeader title={operation} />
             <CardContent>
+              <ChipChantier chantier={chantier} />
               <Typography>Code chantier : {numero}</Typography>
               <Etape etape={etape} />
             </CardContent>

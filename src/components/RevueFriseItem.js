@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const RevueFriseItem = ({ evt_date, info_cles, info_marches }) => {
+const RevueFriseItem = ({ key, evt_date, info_cles, info_marches }) => {
   const classes = useStyles()
   const renderSwitch = () => {
     return (
@@ -39,6 +39,7 @@ const RevueFriseItem = ({ evt_date, info_cles, info_marches }) => {
   }
   return (
     <FriseItem
+      key={`frise${key}`}
       item={() => renderSwitch()}
       icon={() => renderIcon()}
       evt_date={evt_date}

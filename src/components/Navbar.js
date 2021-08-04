@@ -17,6 +17,18 @@ const Navbar = () => {
   const classes = useStyles()
   const location = useLocation()
   let currentPath = location.pathname
+  console.log(currentPath)
+
+  // UGLY
+  if (currentPath) {
+    const pathitems = currentPath.split("/")
+    //    console.log(pathitems)
+    //    console.log(pathitems[1])
+    if (pathitems && pathitems.length >= 1) {
+      currentPath = "/" + pathitems[1] + "s"
+    }
+    //    console.log(currentPath)
+  }
 
   const a11yProps = index => {
     return {

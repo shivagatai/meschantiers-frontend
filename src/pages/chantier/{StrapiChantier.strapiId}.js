@@ -2,18 +2,12 @@ import React from "react"
 
 import { graphql, Link } from "gatsby"
 import Layout from "../../components/layout"
-import {
-  Breadcrumbs,
-  Typography,
-  Paper,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@material-ui/core"
+import { Breadcrumbs, Typography } from "@material-ui/core"
 
 import { DateTime } from "luxon"
 
-import { FormControl } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
+
 import Frise from "../../components/Frise"
 import { budgetFormat } from "../../utils/Utils"
 import BudgetFriseItem from "../../components/BudgetFriseItem"
@@ -22,6 +16,7 @@ import DatePrevFriseItem from "../../components/DatePrevFriseItem"
 import DateReelFriseItem from "../../components/DateReelFriseItem"
 import MarcheFriseItem from "../../components/MarcheFriseItem"
 import Etape from "../../components/Etape"
+import ChipChantier from "../../components/ChipChantier"
 
 const ChantierTemplate = ({ data }) => {
   const {
@@ -52,7 +47,15 @@ const ChantierTemplate = ({ data }) => {
   const events = buildEventArray(budgets, revues, prevu, reel, evt_marches)
 
   //  console.log(events)
-
+  const toto = {
+    cpe,
+    dfap,
+    plan_relance,
+    comite_proj,
+    priorite,
+    categorie_travaux,
+    fonction_associee,
+  }
   return (
     <Layout>
       {site && (
@@ -68,34 +71,9 @@ const ChantierTemplate = ({ data }) => {
         </Breadcrumbs>
       )}
       <Typography variant="h1">{operation}</Typography>
-      <FormControl component="fieldset">
-        <FormGroup aria-label="position" row>
-          <FormControlLabel
-            control={<Switch checked={cpe} color="primary" />}
-            label="CPE"
-            labelPlacement="top"
-          />
-          <FormControlLabel
-            control={<Switch checked={dfap} color="primary" />}
-            label="DFAP"
-            labelPlacement="top"
-          />
-          <FormControlLabel
-            control={<Switch checked={plan_relance} color="primary" />}
-            label="Plan de relance"
-            labelPlacement="top"
-          />
-          <FormControlLabel
-            control={<Switch checked={comite_proj} color="primary" />}
-            label="Comité de projet"
-            labelPlacement="top"
-          />
-        </FormGroup>
-      </FormControl>
 
-      <Typography>Catégorie travaux : {categorie_travaux}</Typography>
-      <Typography>Fonction associée : {fonction_associee}</Typography>
-      <Typography>Priorité : {priorite}</Typography>
+      <ChipChantier chantier={toto} />
+      <Typography>Code chantier : {numero}</Typography>
       <Typography>
         Estimation SMOCT : {budgetFormat.format(parseFloat(ap_est))}
       </Typography>
@@ -108,7 +86,6 @@ const ChantierTemplate = ({ data }) => {
         </Typography>
       )}
       <Etape etape={etape} livraison={reel["fin_tvx"]} />
-
       <Frise events={events} />
     </Layout>
   )
@@ -177,11 +154,13 @@ export const query = graphql`
         reste_a_engager_sur_operation
         reste_a_mandater_sur_engagement
         reste_a_mandater_sur_operation
+        id
       }
       evt_marches {
         jalon_date
         observations
         type
+        id
       }
     }
   }
@@ -201,9 +180,15 @@ function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
   const events = []
   if (budgets) {
     budgets.forEach(budget => {
-      const { date_suivi_budget, engagement_total, mandatement_total } = budget
+      const {
+        date_suivi_budget,
+        engagement_total,
+        mandatement_total,
+        id,
+      } = budget
       events.push(
         <BudgetFriseItem
+          key={id}
           evt_date={DateTime.fromISO(date_suivi_budget)}
           engagement_total={engagement_total}
           mandatement_total={mandatement_total}
@@ -213,9 +198,10 @@ function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
   }
   if (revues) {
     revues.forEach(revue => {
-      const { date_maj, info_cles, info_marches } = revue
+      const { date_maj, info_cles, info_marches, id } = revue
       events.push(
         <RevueFriseItem
+          key={id}
           evt_date={DateTime.fromISO(date_maj)}
           info_cles={info_cles}
           info_marches={info_marches}

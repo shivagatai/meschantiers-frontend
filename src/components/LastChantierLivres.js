@@ -16,6 +16,11 @@ const queryDernierChantiersLivres = graphql`
           fin_tvx
         }
         operation
+        cpe
+        plan_relance
+        comite_proj
+        dfap
+        priorite
         site {
           nom_corrige_dbr
           eple
