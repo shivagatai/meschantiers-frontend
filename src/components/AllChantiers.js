@@ -10,7 +10,7 @@ import {
 
 import ChantierList from "./ChantierList"
 
-const AllChantiers = ({ filter }) => {
+const AllChantiers = ({}) => {
   const [expanded, setExpanded] = React.useState("panel1")
 
   const handleChange = panel => (event, newExpanded) => {
@@ -59,6 +59,7 @@ const query = graphql`
           comite_proj
           numero
           site {
+            id
             nom_corrige_dbr
             numero
             eple

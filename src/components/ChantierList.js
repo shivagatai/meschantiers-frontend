@@ -44,7 +44,10 @@ const ChantierList = ({ chantiers = [] }) => {
           <ChipChantier chantier={chantier} />
           <Typography>Code chantier : {numero}</Typography>
           {site && site.nom_corrige_dbr && (
-            <Typography>Site : {site.nom_corrige_dbr}</Typography>
+            <Typography>
+              Site :{" "}
+              <Link to={`/sites/${site.id}`}>{site.nom_corrige_dbr}</Link>
+            </Typography>
           )}
           <Etape etape={etape} />
           {dateLastRevue && (
