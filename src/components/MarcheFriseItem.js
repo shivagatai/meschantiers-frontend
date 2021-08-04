@@ -6,11 +6,10 @@ import AccountBalanceOutlinedIcon from "@material-ui/icons/AccountBalanceOutline
 
 import FriseItem from "./FriseItem"
 
-const MarcheFriseItem = ({ evt_date, type, obs }) => {
-
+const MarcheFriseItem = ({ id, evt_date, type, obs }) => {
   const label = {
-    receptdoss : "Date de réception du dossier",
-    envoisdm : "Date d'envoi du dossier au service des marchés",
+    receptdoss: "Date de réception du dossier",
+    envoisdm: "Date d'envoi du dossier au service des marchés",
     publicite: "Date de publication de l'appel d'offres",
     remiseoffre: "Date de remise des offres",
     envoiplismoe: "Date d'envoi des offres au MOE",
@@ -24,9 +23,7 @@ const MarcheFriseItem = ({ evt_date, type, obs }) => {
     return (
       <>
         <Typography>{label[type]}</Typography>
-        {obs && 
-        <Typography>{obs}</Typography>
-      }
+        {obs && <Typography>{obs}</Typography>}
       </>
     )
   }
@@ -35,8 +32,14 @@ const MarcheFriseItem = ({ evt_date, type, obs }) => {
     return <AccountBalanceOutlinedIcon />
   }
 
+  const getKey = () => {
+    return `frise${id}`
+  }
+
   return (
     <FriseItem
+      id={() => getKey()}
+      key={() => getKey()}
       item={() => renderSwitch()}
       icon={() => renderIcon()}
       evt_date={evt_date}

@@ -35,22 +35,38 @@ const ChipChantier = params => {
   return (
     <div className={classes.root}>
       {cpe && <Chip label="CPE" onClick={handleClick} color="secondary" />}
-      {dfap && <Chip label="DFAP" color="secondary" />}
-      {plan_relance && <Chip label="Plan de relance" color="secondary" />}
+      {dfap && <Chip label="DFAP" onClick={handleClick} color="secondary" />}
+      {plan_relance && (
+        <Chip label="Plan de relance" onClick={handleClick} color="secondary" />
+      )}
       {comite_proj && (
         <Chip
           label="Comité de projet"
-          disabled={!comite_proj}
+          onClick={handleClick}
           color="secondary"
         />
       )}
       {categorie_travaux && (
-        <Chip label={categorie_travaux} color="secondary" />
+        <Chip
+          label={categorie_travaux}
+          onClick={handleClick}
+          color="secondary"
+        />
       )}
       {fonction_associee && (
-        <Chip label={fonction_associee} color="secondary" />
+        <Chip
+          label={fonction_associee}
+          onClick={handleClick}
+          color="secondary"
+        />
       )}
-      {priorite && <Chip label={`Priorité ${priorite}`} color="secondary" />}
+      {priorite && (
+        <Chip
+          label={`Priorité ${priorite}`}
+          onClick={handleClick}
+          color="secondary"
+        />
+      )}
     </div>
   )
 }

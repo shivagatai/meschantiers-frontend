@@ -8,7 +8,7 @@ import { budgetFormat, percentFormat } from "../utils/Utils"
 import FriseItem from "./FriseItem"
 
 const BudgetFriseItem = ({
-  key,
+  id,
   evt_date,
   mandatement_total,
   engagement_total,
@@ -34,9 +34,14 @@ const BudgetFriseItem = ({
     return <EuroSymbolOutlinedIcon />
   }
 
+  const getKey = () => {
+    return `frise${id}`
+  }
+
   return (
     <FriseItem
-      key={`frise${key}`}
+      id={() => getKey()}
+      key={() => getKey()}
       item={() => renderSwitch()}
       icon={() => renderIcon()}
       evt_date={evt_date}

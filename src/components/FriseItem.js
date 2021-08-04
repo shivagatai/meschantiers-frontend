@@ -23,13 +23,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const FriseItem = ({ key, evt_date, item, icon, display = true }) => {
+const FriseItem = ({ id, evt_date, item, icon, display = true }) => {
   const classes = useStyles()
 
   return (
     <>
       {display && (
-        <TimelineItem key={key}>
+        <TimelineItem key={`tlitem${id()}`}>
           <TimelineOppositeContent>
             <Typography className={classes.dateItem}>
               {evt_date.setLocale("fr").toLocaleString()}

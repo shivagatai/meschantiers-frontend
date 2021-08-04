@@ -17,7 +17,7 @@ const Navbar = () => {
   const classes = useStyles()
   const location = useLocation()
   let currentPath = location.pathname
-  console.log(currentPath)
+  // console.log(currentPath)
 
   // UGLY
   if (currentPath) {

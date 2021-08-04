@@ -8,7 +8,7 @@ import { DateTime } from "luxon"
 
 import FriseItem from "./FriseItem"
 
-const DateReelFriseItem = ({ evt_date, label }) => {
+const DateReelFriseItem = ({ id, evt_date, label }) => {
   const renderSwitch = () => {
     return <Typography>{label}</Typography>
   }
@@ -21,11 +21,17 @@ const DateReelFriseItem = ({ evt_date, label }) => {
     )
   }
 
+  const getKey = () => {
+    return `frise${id}`
+  }
+
   // On n’affiche que les dates réelles situées dans le passé
   const displayItem = evt_date <= DateTime.now()
 
   return (
     <FriseItem
+      id={() => getKey()}
+      key={() => getKey()}
       item={() => renderSwitch()}
       icon={() => renderIcon()}
       evt_date={evt_date}

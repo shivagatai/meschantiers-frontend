@@ -8,7 +8,7 @@ import { DateTime } from "luxon"
 
 import FriseItem from "./FriseItem"
 
-const DatePrevFriseItem = ({ evt_date, label }) => {
+const DatePrevFriseItem = ({ id, evt_date, label }) => {
   const renderSwitch = () => {
     return <Typography>{label}</Typography>
   }
@@ -17,11 +17,17 @@ const DatePrevFriseItem = ({ evt_date, label }) => {
     return <EventOutlinedIcon />
   }
 
+  const getKey = () => {
+    return `frise${id}`
+  }
+
   // On n’affiche que les dates prévisionnelles situées dans le futur
   const displayItem = evt_date >= DateTime.now()
 
   return (
     <FriseItem
+      id={() => getKey()}
+      key={() => getKey()}
       item={() => renderSwitch()}
       icon={() => renderIcon()}
       evt_date={evt_date}

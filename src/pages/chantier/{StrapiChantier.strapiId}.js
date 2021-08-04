@@ -188,7 +188,8 @@ function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
       } = budget
       events.push(
         <BudgetFriseItem
-          key={id}
+          id={`budg${id}`}
+          key={`budg${id}`}
           evt_date={DateTime.fromISO(date_suivi_budget)}
           engagement_total={engagement_total}
           mandatement_total={mandatement_total}
@@ -201,7 +202,8 @@ function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
       const { date_maj, info_cles, info_marches, id } = revue
       events.push(
         <RevueFriseItem
-          key={id}
+          id={`rev${id}`}
+          key={`rev${id}`}
           evt_date={DateTime.fromISO(date_maj)}
           info_cles={info_cles}
           info_marches={info_marches}
@@ -229,10 +231,15 @@ function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
   // console.log(date_prev)
   //  console.log(events)
 
-  date_prev.forEach(({ value, label }) => {
+  date_prev.forEach(({ value, label }, idx) => {
     if (value) {
       events.push(
-        <DatePrevFriseItem evt_date={DateTime.fromISO(value)} label={label} />
+        <DatePrevFriseItem
+          id={`prev${idx}`}
+          key={`prev${idx}`}
+          evt_date={DateTime.fromISO(value)}
+          label={label}
+        />
       )
     }
   })
@@ -254,18 +261,25 @@ function buildEventArray(budgets, revues, prevu, reel, evt_marches) {
     { value: reel.fin_tvx, label: "Date réelle de fin des travaux" },
   ]
 
-  date_reel.forEach(({ value, label }) => {
+  date_reel.forEach(({ value, label }, idx) => {
     if (value) {
       events.push(
-        <DateReelFriseItem evt_date={DateTime.fromISO(value)} label={label} />
+        <DateReelFriseItem
+          id={`reel${idx}`}
+          key={`reel${idx}`}
+          evt_date={DateTime.fromISO(value)}
+          label={label}
+        />
       )
     }
   })
 
   if (evt_marches) {
-    evt_marches.forEach(({ jalon_date, observations, type }) => {
+    evt_marches.forEach(({ id, jalon_date, observations, type }) => {
       events.push(
         <MarcheFriseItem
+          id={`march${id}`}
+          key={`march${id}`}
           evt_date={DateTime.fromISO(jalon_date)}
           type={type}
           obs={observations}
