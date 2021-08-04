@@ -28,13 +28,24 @@ const ChipChantier = params => {
     fonction_associee,
   } = params.chantier
 
-  const handleClick = () => {
+  const handleClick = evt => {
     console.info("You clicked the Chip.")
+    console.info(evt)
+  }
+
+  const handleClickCPE = evt => {
+    console.info("You clicked the Chip.")
+    console.info({ filter: { CPE: true } })
+  }
+
+  const handleClickPriorite = evt => {
+    console.info("You clicked the Chip.")
+    console.info({ filter: { priorite: priorite } })
   }
 
   return (
     <div className={classes.root}>
-      {cpe && <Chip label="CPE" onClick={handleClick} color="secondary" />}
+      {cpe && <Chip label="CPE" onClick={handleClickCPE} color="secondary" />}
       {dfap && <Chip label="DFAP" onClick={handleClick} color="secondary" />}
       {plan_relance && (
         <Chip label="Plan de relance" onClick={handleClick} color="secondary" />
@@ -63,7 +74,7 @@ const ChipChantier = params => {
       {priorite && (
         <Chip
           label={`Priorité ${priorite}`}
-          onClick={handleClick}
+          onClick={handleClickPriorite}
           color="secondary"
         />
       )}

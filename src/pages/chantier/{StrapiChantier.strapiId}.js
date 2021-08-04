@@ -67,7 +67,7 @@ const ChantierTemplate = ({ data }) => {
           <Link to={`/commune/${site.commune.insee_nv}`}>
             {site.commune.commune_nv}
           </Link>
-          <Link to={`/sites/${site.numero}`}>{site.nom_corrige_dbr}</Link>
+          <Link to={`/sites/${site.id}`}>{site.nom_corrige_dbr}</Link>
         </Breadcrumbs>
       )}
       <Typography variant="h1">{operation}</Typography>
@@ -123,6 +123,7 @@ export const query = graphql`
         etiquet_s
         etiquet
         numero
+        id
         code_uai_rattachement
       }
       revues {

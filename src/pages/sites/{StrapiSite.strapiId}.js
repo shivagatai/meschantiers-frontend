@@ -9,7 +9,6 @@ const SiteTemplate = ({ data }) => {
     etiquet_s,
     etiquet,
     eple,
-    strapiId,
     numero,
     nom_corrige_dbr,
     commune: { epci, commune_nv, insee_nv, departement },
@@ -30,8 +29,8 @@ const SiteTemplate = ({ data }) => {
 }
 
 export const query = graphql`
-  query getSiteByNumero($numero: Int) {
-    strapiSite(numero: { eq: $numero }) {
+  query getSiteById($strapiId: Int) {
+    strapiSite(strapiId: { eq: $strapiId }) {
       etiquet_s
       etiquet
       eple
@@ -63,6 +62,9 @@ export const query = graphql`
         etape {
           etape
           ordre
+        }
+        revues {
+          date_maj
         }
       }
     }

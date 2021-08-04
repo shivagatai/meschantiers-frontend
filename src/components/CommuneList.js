@@ -11,13 +11,7 @@ const CommuneList = ({ communes = [] }) => {
   return (
     <section className="cards">
       {communes.map(commune => {
-        const {
-          commune_nv,
-          insee_nv,
-          strapiId,
-          epci: { epci, etiq_epci },
-          sites,
-        } = commune
+        const { commune_nv, insee_nv, sites } = commune
 
         return (
           <Card key={insee_nv}>
@@ -25,7 +19,7 @@ const CommuneList = ({ communes = [] }) => {
 
             <CardContent>
               {sites.map(site => {
-                const { eple, nom_corrige_dbr, numero } = site
+                const { id, eple, nom_corrige_dbr, numero } = site
                 const siteIcon =
                   eple === "EPLE" ? (
                     <SchoolOutlinedIcon />
@@ -35,8 +29,8 @@ const CommuneList = ({ communes = [] }) => {
 
                 return (
                   <Button
-                    key={numero}
-                    to={`/sites/${numero}`}
+                    key={id}
+                    to={`/sites/${id}`}
                     component={Link}
                     startIcon={siteIcon}
                   >

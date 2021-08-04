@@ -26,6 +26,7 @@ export const query = graphql`
           etiq_epci
         }
         sites {
+          id
           numero
           nom_corrige_dbr
           eple

@@ -50,6 +50,7 @@ const query = graphql`
           etiq_epci
         }
         sites {
+          id
           eple
           etiquet
           etiquet_s

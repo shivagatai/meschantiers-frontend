@@ -1,17 +1,16 @@
 import React from "react"
 
 import { graphql, useStaticQuery } from "gatsby"
-import CommuneList from "./CommuneList"
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography,
 } from "@material-ui/core"
-import Etape from "./Etape"
+
 import ChantierList from "./ChantierList"
 
-const AllChantiers = () => {
+const AllChantiers = ({ filter }) => {
   const [expanded, setExpanded] = React.useState("panel1")
 
   const handleChange = panel => (event, newExpanded) => {
@@ -21,16 +20,11 @@ const AllChantiers = () => {
   const data = useStaticQuery(query)
   const groupByEtape = data.allStrapiEtape.nodes
 
-  // graphql trie par défaut ordre alphabétique, si bien que 10 est devant 2
-  // donc on retrie le tableau en forçant la comparaison numérique
-  //groupByEtape.sort(function (a, b) {
-  //  return Number(a.nodes[0].etape.ordre) - Number(b.nodes[0].etape.ordre)
-  //})
-
   // on affiche le résultat par groupe
-  return groupByEtape.map(({ ordre, etape, chantiers }) => {
+  return groupByEtape.map(({ id, ordre, etape, chantiers }) => {
     return (
       <Accordion
+        key={id}
         square
         expanded={expanded === `step${ordre}`}
         onChange={handleChange(`step${ordre}`)}
@@ -53,6 +47,7 @@ const query = graphql`
   {
     allStrapiEtape(sort: { fields: ordre }) {
       nodes {
+        id
         ordre
         etape
         chantiers {
@@ -72,6 +67,9 @@ const query = graphql`
           etape {
             etape
             ordre
+          }
+          revues {
+            date_maj
           }
         }
       }
