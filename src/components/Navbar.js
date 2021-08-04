@@ -25,7 +25,10 @@ const Navbar = () => {
     //    console.log(pathitems)
     //    console.log(pathitems[1])
     if (pathitems && pathitems.length >= 1) {
-      currentPath = "/" + pathitems[1] + "s"
+      currentPath = pathitems[1].endsWith("s")
+        ? pathitems[1]
+        : pathitems[1] + "s"
+      currentPath = "/" + currentPath
     }
     //    console.log(currentPath)
   }

@@ -57,6 +57,11 @@ const query = graphql`
         etape
         chantiers {
           operation
+          priorite
+          cpe
+          dfap
+          plan_relance
+          comite_proj
           numero
           site {
             nom_corrige_dbr
