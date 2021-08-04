@@ -25,10 +25,6 @@ const BudgetFriseItem = ({ evt_date, mandatement_total, engagement_total }) => {
     )
   }
 
-  const getDate = () => {
-    return evt_date
-  }
-
   const renderIcon = () => {
     return <EuroSymbolOutlinedIcon />
   }
