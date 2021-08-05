@@ -23,6 +23,7 @@ const queryChantiersAVenir = graphql`
         dfap
         priorite
         site {
+          id
           nom_corrige_dbr
           eple
           numero
